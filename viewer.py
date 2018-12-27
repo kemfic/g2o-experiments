@@ -1,5 +1,5 @@
 import numpy as np
-import g2o
+import multithreading as multi
 import pangolin as pango
 
 
