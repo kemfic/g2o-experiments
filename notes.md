@@ -3,7 +3,8 @@ notes
 
 [.g2o file format](https://github.com/RainerKuemmerle/g2o/wiki/File-Format)
 ---
-####vertices
+
+### vertices
 
 3d pose
   - ```VERTEX_SE3:QUAT id x y z qx qy qz qw```
@@ -11,7 +12,7 @@ notes
 3d point
   - ```VERTEX_TRACKXYZ id x y z```
 
-#### edges
+### edges
   - ```EDGE_SE3:QUAT id1 id2 measurement information_matrix```
 
 
