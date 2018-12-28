@@ -4,6 +4,8 @@ import g2o
 optimizer = g2o.SparseOptimizer()
 optimizer.set_verbose(True)
 
-optimizer.load("test.g2o")
+optimizer.load("data/sphere2500.g2o")
 
-print(optimizer.vertices()[0].get_estimate_data())
+vertices = [i.estimate().matrix() for i in optimizer.vertices().values()]
+
+
