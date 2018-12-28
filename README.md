@@ -2,6 +2,8 @@ g2o-experiments
 ---
 no clue what im doing, just trying to figure out how g2o works
 
+[notes](notes.md)
+---
 
 dependencies
 ---
