@@ -9,23 +9,21 @@ class Viewer3D(object):
     - based off ficiciSLAM's viewer
        - github.com/kemfic/ficiciSLAM
   '''
-  def __init__(self):
-    self.state = None
-    self.q = Queue()
+  tform = np.array([[0.0, 0.0, 1.0, 0.0],
+                    [1.0, 0.0, 0.0, 0.0],
+                    [0.0, 1.0, 0.0, 0.0],
+                    [0.0, 0.0, 0.0, 1.0]])
+  def __init__(self, nodes, edges):
+    self.init()
 
-    self.vt = Process(target=self.viewer_thread, args=(self.q,))
-    self.vt.daemon = True
-    self.vt.start()
-
-    self.nodes, self.edges = [], []
-
-  def viewer_thread(self, q):
-    self.viewer_init()
+    self.nodes = np.dot(nodes, self.tform)
+    self.edges = np.array(edges)
 
     while not pango.ShouldQuit():
-      self.viewer_refresh(q)
+      self.refresh()
 
-  def viewer_init(self):
+
+  def init(self):
     w, h = (1024,768)
     f = 2000 #420
 
@@ -46,10 +44,8 @@ class Viewer3D(object):
     self.dcam.SetHandler(self.handler)
     self.dcam.Activate()
 
-  def viewer_refresh(self,q):
-    while not q.empty():
-      self.state = q.get()
-      #clear and activate screen
+  def refresh(self):
+    #clear and activate screen
     gl.glClear(gl.GL_COLOR_BUFFER_BIT | gl.GL_DEPTH_BUFFER_BIT)
     gl.glClearColor(0.15, 0.15, 0.15, 0.0)
     #gl.glClearColor(1.0, 1.0, 1.0, 0.0)
@@ -57,17 +53,17 @@ class Viewer3D(object):
     self.dcam.Activate(self.scam)
 
     # render
-    if self.state is not None:
-      gl.glLineWidth(1)
-      # render cameras
-      if len(self.state[0]) > 1:
-        gl.glColor3f(1.0, 0.0, 1.0)
-        pango.DrawCameras(self.state[0])
-      # render edges
-      if len(self.state[1]) > 1:
-        gl.glColor3f(0.2, 1.0, 0.2)
-        pango.DrawLines(self.state[1], self.state[2])
+    gl.glLineWidth(1)
+    # render cameras
+    if len(self.nodes) > 1:
+      gl.glColor3f(1.0, 1.0, 1.0)
+      pango.DrawCameras(self.nodes)
+    # render edges
+    if len(self.edges) > 1:
+      gl.glColor3f(0.0, 0.8, 0.5)
+      pango.DrawLines(self.edges[:,0,:-1, -1], self.edges[:,1,:-1,-1])
     pango.FinishFrame()
+
   def update(self, graph=None):
     '''
     add new stuff to queues
@@ -76,26 +72,9 @@ class Viewer3D(object):
     if self.q is None:
       return
 
-    tform = np.array([[0.0, 0.0, 1.0, 0.0],
-                      [1.0, 0.0, 0.0, 0.0],
-                      [0.0, 1.0, 0.0, 0.0],
-                      [0.0, 0.0, 0.0, 1.0]])
 
-    nodes = np.dot(graph.nodes, tform)
-    edge1 = graph.edges[:,0,:-1,-1]
-    edge2 = graph.edges[:,1,:-1,-1]
-    self.q.put((np.array(nodes), np.array(edge1), np.array(edge2)))
-
-  def stop(self):
-    self.vt.terminate()
-    self.vt.join()
-
-    for x in self.__dict__.values():
-      if isinstance(x, type(Queue())):
-        while not x.empty():
-          _ = x.get()
-
-    print("viewer stopped")
+    self.nodes = np.dot(graph.nodes, tform)
+    self.edges = graph.edges
 
 
 

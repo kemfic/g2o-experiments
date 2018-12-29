@@ -21,7 +21,7 @@ class Graph3D(object):
     for edge in self.optimizer.edges():
       self.edges.append([edge.vertices()[0].estimate().matrix(), edge.vertices()[1].estimate().matrix()])
 
-    self.nodes = [i.estimate().matrix() for i in self.optimizer.vertices().values()]
+    self.nodes = np.array([i.estimate().matrix() for i in self.optimizer.vertices().values()])
     self.nodes = np.array(self.nodes)
     self.edges = np.array(self.edges)
 
@@ -38,10 +38,8 @@ if __name__ == "__main__":
   graph = Graph3D()
   graph.load_file(gfile)
   print("loaded")
-  viewer = Viewer3D()
+  viewer = Viewer3D(graph.nodes, graph.edges)
   print("viewer instantiated")
-  viewer.update(graph)
-
 
 
 
