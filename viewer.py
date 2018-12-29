@@ -3,7 +3,7 @@ import numpy as np
 import OpenGl.GL as gl
 from multiprocessing import Process, Queue
 
-class Viewer(object):
+class Viewer3D(object):
   '''
   3d viewer for g2o maps
     - based off ficiciSLAM's old viewer
@@ -72,7 +72,7 @@ class Viewer(object):
         pango.DrawLines(self.edges[:,0, :-1,-1], self.edges[:,1,:-1, -1])
     pango.FinishFrame()
 
-  def update(self, nodes, edges);
+  def update(self, graph=None);
     '''
     add new stuff to queues
     '''
@@ -85,8 +85,8 @@ class Viewer(object):
                       [0.0, 1.0, 0.0, 0.0],
                       [0.0, 0.0, 0.0, 1.0]])
 
-    self.nodes = np.dot(nodes, tform)
-    self.edges = edges
+    self.nodes = np.dot(graph.nodes, tform)
+    self.edges = graph.edges
 
     self.q_edges.put(self.edges)
     self.q_nodes.put(self.nodes)
