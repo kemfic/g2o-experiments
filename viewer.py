@@ -9,15 +9,16 @@ class Viewer3D(object):
     - based off ficiciSLAM's viewer
        - github.com/kemfic/ficiciSLAM
   '''
+  is_optim = False
   tform = np.array([[0.0, 0.0, 1.0, 0.0],
                     [1.0, 0.0, 0.0, 0.0],
                     [0.0, 1.0, 0.0, 0.0],
                     [0.0, 0.0, 0.0, 1.0]])
-  def __init__(self, nodes, edges):
+  def __init__(self, graph):
     self.init()
-
-    self.nodes = np.dot(nodes, self.tform)
-    self.edges = np.array(edges)
+    self.graph = graph
+    self.nodes = np.dot(graph.nodes, self.tform)
+    self.edges = np.array(graph.edges)
 
     while not pango.ShouldQuit():
       self.refresh()
@@ -44,6 +45,8 @@ class Viewer3D(object):
     self.dcam.SetHandler(self.handler)
     self.dcam.Activate()
 
+    pango.RegisterKeyPressCallback(ord('r'), self.optimize_callback)
+    pango.RegisterKeyPressCallback(ord('t'), self.switch_callback)
   def refresh(self):
     #clear and activate screen
     gl.glClear(gl.GL_COLOR_BUFFER_BIT | gl.GL_DEPTH_BUFFER_BIT)
@@ -73,8 +76,19 @@ class Viewer3D(object):
       return
 
 
-    self.nodes = np.dot(graph.nodes, tform)
+    self.nodes = np.dot(graph.nodes, self.tform)
     self.edges = graph.edges
-
-
-
+  def optimize_callback(self):
+    self.graph.optimize()
+    self.is_optim = False
+    self.switch_callback()
+  def switch_callback(self):
+    self.is_optim = ~self.is_optim
+    if self.is_optim:
+      print("optimized")
+      self.nodes = np.dot(self.graph.nodes_optimized, self.tform)
+      self.edges = self.graph.edges_optimized
+    else:
+      print("original")
+      self.nodes = np.dot(self.graph.nodes, self.tform)
+      self.edges = self.graph.edges
