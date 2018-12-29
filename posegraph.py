@@ -28,9 +28,9 @@ class PoseGraph3D(object):
     self.nodes = np.array(self.nodes)
     self.edges = np.array(self.edges)
 
-  def optimize(self):
+  def optimize(self, iterations=1):
     self.optimizer.initialize_optimization()
-    self.optimizer.optimize(1)
+    self.optimizer.optimize(iterations)
 
     self.optimizer.save("data/out.g2o")
     self.edges_optimized = []

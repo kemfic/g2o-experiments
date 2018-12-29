@@ -11,6 +11,11 @@ videos
 
 [garage demo](https://www.youtube.com/watch?v=E0D91GAmARQ&index=3&list=PLz9N52s5FSIUFNoLjyNy_9EW42Ngy6ipn)
 
+how to use
+---
+```python posegraph.py optional/your/dataset/here.g2o```
+ - ```r``` - runs a single iteration of the optimizer
+ - ```t``` - toggle before/after
 
 [notes](notes.md)
 ---
