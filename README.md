@@ -2,12 +2,13 @@ g2o-experiments
 ---
 no clue what im doing, just trying to figure out how g2o works
 
+![pretty pic](resources/0.png)
+
 [notes](notes.md)
 ---
 
 TODO
 ---
- - add viewer pic
  - create SimpleViewer class
  - start working on optimization
 
