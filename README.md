@@ -9,8 +9,8 @@ no clue what im doing, just trying to figure out how g2o works
 
 TODO
 ---
- - create SimpleViewer class
  - start working on optimization
+ - add settings to viewer (before/after)
 
 dependencies
 ---
