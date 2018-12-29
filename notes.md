@@ -20,3 +20,5 @@ notes
  - ```optimizer.vertex(index).estimate().matrix()```
  - ```matrices = [vertex.estimate().matrix() for vertex in optimizer.vertices.values()]```
 
+**getting vertices from edge**
+ - ```edge.vertices()``` returns a list of vertex objects
