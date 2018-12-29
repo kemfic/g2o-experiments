@@ -1,5 +1,9 @@
 notes
 ---
+pose graph optimization - only optimizes pose measurements
+bundle adjustment - optimizes both points and poses
+
+
 
 [.g2o file format](https://github.com/RainerKuemmerle/g2o/wiki/File-Format)
 ---
