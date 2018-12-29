@@ -37,6 +37,6 @@ license
 ---
 my code's MIT licensed, but please attribute my work if you found it useful.
  - g2o/g2opy, BSD Licensed
- - [citations for dataset](data/dataset.md)
+ - [citations for dataset](pose-graph-optimization/data/dataset.md)
 
  [uoip](https://github.com/uoip) is a real G.
