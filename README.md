@@ -5,6 +5,12 @@ no clue what im doing, just trying to figure out how g2o works
 [notes](notes.md)
 ---
 
+TODO
+---
+ - add viewer pic
+ - create SimpleViewer class
+ - start working on optimization
+
 dependencies
 ---
  - numpy
