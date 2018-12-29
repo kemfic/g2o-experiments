@@ -43,11 +43,9 @@ while not pango.ShouldQuit():
 
   gl.glPointSize(5)
   gl.glColor3f(1.0,1.0,1.0)
+  pango.DrawCameras(vertices)
 
-  pango.DrawCameras(vertices[1::])
-  gl.glColor3f(0.0, 1.0,0.1)
-
-  pango.DrawCamera(vertices[0])
+  gl.glColor3f(0.0, 0.7,0.4)
   pango.DrawLines(edges[:,0,:-1,-1 ], edges[:,1,:-1,-1])
 
   pango.FinishFrame()
