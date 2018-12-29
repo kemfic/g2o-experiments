@@ -2,11 +2,15 @@ g2o-experiments
 ---
 no clue what im doing, just trying to figure out how g2o works
 
-[demo video](https://www.youtube.com/watch?v=g4ZYlouGgkY&index=3&list=PLz9N52s5FSIUFNoLjyNy_9EW42Ngy6ipn)
-
-[another demo vid](https://www.youtube.com/watch?v=E0D91GAmARQ&index=4&list=PLz9N52s5FSIUFNoLjyNy_9EW42Ngy6ipn)
 
 ![pretty pic](resources/0.png)
+
+videos
+---
+[sphere demo](https://www.youtube.com/watch?v=UOb5a2DydmI&list=PLz9N52s5FSIUfsxP8oxdoD0cgdM_ehSKl&index=2&t=0s)
+
+[garage demo](https://www.youtube.com/watch?v=E0D91GAmARQ&list=PLz9N52s5FSIUfsxP8oxdoD0cgdM_ehSKl&index=4)
+
 
 [notes](notes.md)
 ---
