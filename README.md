@@ -2,6 +2,10 @@ g2o-experiments
 ---
 no clue what im doing, just trying to figure out how g2o works
 
+[demo video](https://www.youtube.com/watch?v=g4ZYlouGgkY&index=3&list=PLz9N52s5FSIUFNoLjyNy_9EW42Ngy6ipn)
+
+[another demo vid](https://www.youtube.com/watch?v=E0D91GAmARQ&index=4&list=PLz9N52s5FSIUFNoLjyNy_9EW42Ngy6ipn)
+
 ![pretty pic](resources/0.png)
 
 [notes](notes.md)
