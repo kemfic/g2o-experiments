@@ -1,15 +1,13 @@
 import g2o
 import numpy as np
-from viewer import Viewer3D
-import pangolin as pango
-
-
-class Graph(object):
-  vertices = []
+from viewer import *
+import sys
+class Graph3D(object):
+  nodes = []
   edges = []
   def __init__(self, verbose=False):
     self.solver = g2o.BlockSolverSE3(g2o.LinearSolverEigenSE3())
-    self.solver=  g2o.OptimizationAlgorithmLevengerg(self.solver)
+    self.solver=  g2o.OptimizationAlgorithmLevenberg(self.solver)
 
     self.optimizer = g2o.SparseOptimizer()
     self.optimizer.set_verbose(verbose)
@@ -23,25 +21,26 @@ class Graph(object):
     for edge in self.optimizer.edges():
       self.edges.append([edge.vertices()[0].estimate().matrix(), edge.vertices()[1].estimate().matrix()])
 
-    self.vertices = [i.estimate().matrix() for i in self.optimizer.vertices().values()]
-
+    self.nodes = [i.estimate().matrix() for i in self.optimizer.vertices().values()]
+    self.nodes = np.array(self.nodes)
+    self.edges = np.array(self.edges)
 
   def optimize(self):
     return None
 
 
 if __name__ == "__main__":
-  if len(sys.argv)> 0:
+  if len(sys.argv) > 1:
     gfile = str(sys.argv[1])
   else:
     gfile = "data/garage.g2o"
 
-  viewer = Viewer3D()
-  graph = Graph()
+  graph = Graph3D()
   graph.load_file(gfile)
-
-  while not pango.ShouldQuit():
-    viewer.update(graph)
+  print("loaded")
+  viewer = Viewer3D()
+  print("viewer instantiated")
+  viewer.update(graph)
 
 
 
