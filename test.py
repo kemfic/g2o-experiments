@@ -8,7 +8,19 @@ optimizer.set_verbose(True)
 
 optimizer.load("data/garage.g2o")
 
-vertices = [i.estimate().t for i in optimizer.vertices().values()]
+vertices = [i.estimate().matrix() for i in optimizer.vertices().values()]
+print(np.shape(vertices))
+edges = []
+for edge in optimizer.edges():
+  edges.append([edge.vertices()[0].estimate().matrix(), edge.vertices()[1].estimate().matrix()])
+edges = np.array(edges)
+
+rotator = np.array([[0.0, 0.0, 1.0, 0.0],
+                    [1.0, 0.0, 0.0, 0.0],
+                    [0.0, 1.0, 0.0, 0.0],
+                    [0.0, 0.0, 0.0, 1.0]])
+
+vertices = np.dot(vertices, rotator)
 
 pango.CreateWindowAndBind('Main', 640, 480)
 gl.glEnable(gl.GL_DEPTH_TEST)
@@ -32,6 +44,10 @@ while not pango.ShouldQuit():
   gl.glPointSize(5)
   gl.glColor3f(1.0,1.0,1.0)
 
-  pango.DrawLines(vertices)
+  pango.DrawCameras(vertices[1::])
+  gl.glColor3f(0.0, 1.0,0.1)
+
+  pango.DrawCamera(vertices[0])
+  pango.DrawLines(edges[:,0,:-1,-1 ], edges[:,1,:-1,-1])
 
   pango.FinishFrame()
