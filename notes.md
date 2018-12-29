@@ -21,4 +21,5 @@ notes
  - ```matrices = [vertex.estimate().matrix() for vertex in optimizer.vertices.values()]```
 
 **getting vertices from edge**
- - ```edge.vertices()``` returns a list of vertex objects
+ - ```edges``` is a SET of ```edge``` elements?
+ - ```edge.vertices()``` returns a list of vertex objects, shape: [n, 2]
