@@ -12,8 +12,8 @@ param = dict(
 	ransac_params = dict(
         model_class = T,
 		min_samples = 8,
-		residual_threshold = 0.01,
-		max_trials = 100
+		residual_threshold = 0.00001,
+		max_trials = 100000
 		)
 
 )
